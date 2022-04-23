@@ -47,6 +47,7 @@ main{
   display: grid;
   grid: 1fr 1fr / repeat(5, 1fr); 
   gap: 34px;
+  user-select: none;
 }
 
 .dice{
@@ -84,7 +85,16 @@ main{
   box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
 }
 
-.footer{
+.dashboard{
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.count__container{
   display: flex;
   width: 100%;
   justify-content: center;
@@ -107,4 +117,18 @@ main{
 .counter{
   font-size: 25px;
   font-weight: bolder;
+}
+
+.timer{
+  text-align: center;
+}
+
+.time{
+  font-size: 20px;
+  border-bottom: 1px black solid;
+}
+
+.lastTime{
+  font-size: 15px;
+  color: gray;
 }
