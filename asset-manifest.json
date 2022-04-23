@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Tenzies-game-react/static/css/main.f176fbc4.css",
-    "main.js": "/Tenzies-game-react/static/js/main.03dc29a7.js",
+    "main.css": "/Tenzies-game-react/static/css/main.677b882f.css",
+    "main.js": "/Tenzies-game-react/static/js/main.20d9fe66.js",
     "index.html": "/Tenzies-game-react/index.html",
-    "main.f176fbc4.css.map": "/Tenzies-game-react/static/css/main.f176fbc4.css.map",
-    "main.03dc29a7.js.map": "/Tenzies-game-react/static/js/main.03dc29a7.js.map"
+    "main.677b882f.css.map": "/Tenzies-game-react/static/css/main.677b882f.css.map",
+    "main.20d9fe66.js.map": "/Tenzies-game-react/static/js/main.20d9fe66.js.map"
   },
   "entrypoints": [
-    "static/css/main.f176fbc4.css",
-    "static/js/main.03dc29a7.js"
+    "static/css/main.677b882f.css",
+    "static/js/main.20d9fe66.js"
   ]
 }
