@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react"
-import { nanoid } from "nanoid"
+import { useState, useEffect } from 'react'
+import { nanoid } from 'nanoid'
 
-import Die from "./Components/Die"
+import Die from './Components/Die'
 
-import "./Styles/style.css"
+import './Styles/style.css'
 
 function allNewDice() {
   let arrDice = []
@@ -22,8 +22,14 @@ export default function App() {
   const [dice, setDice] = useState([])
   const [tenzies, setTenzies] = useState(false)
   const [counter, setCounter] = useState(0)
-  const [prevCounter, setPrevCounter] = useState(0)
-  const [time, setTime] = useState({ time: 0, lastTime: 0, stop: true })
+  const [prevCounter, setPrevCounter] = useState(
+    JSON.parse(localStorage.getItem('previousGame')).previousCounter || 0
+  )
+  const [time, setTime] = useState({
+    time: 0,
+    lastTime: JSON.parse(localStorage.getItem('previousGame')).previousTime,
+    stop: true,
+  })
 
   useEffect(() => {
     const wonHeld = dice.every(die => die.isHeld)
@@ -31,6 +37,13 @@ export default function App() {
     if (wonHeld && wonValue) {
       setTenzies(true)
       setTime(prev => ({ ...prev, stop: true }))
+      const save = {
+        previousCounter: counter,
+        previousTime: time.time,
+      }
+      if (counter !== 0) {
+        localStorage.setItem('previousGame', JSON.stringify(save))
+      }
     }
   }, [dice])
 
@@ -45,8 +58,16 @@ export default function App() {
 
   const Roll = () => {
     if (tenzies) {
-      setPrevCounter(counter)
-      setTime(prev => ({ time: 0, lastTime: prev.time }))
+      setPrevCounter(
+        counter ||
+          JSON.parse(localStorage.getItem('previousGame')).previousCounter
+      )
+      setTime(prev => ({
+        time: 0,
+        lastTime:
+          prev.time ||
+          JSON.parse(localStorage.getItem('previousGame')).previousTime,
+      }))
       setCounter(-1)
       setDice(allNewDice())
       setTenzies(false)
@@ -94,7 +115,7 @@ export default function App() {
       <div className="dashboard">
         <div className="count__container">
           <div className="last">
-            <h2 className="rollTitle">Pre Roll</h2>
+            <h2 className="rollTitle">Last Game Roll</h2>
             <p className="counter">{prevCounter}</p>
           </div>
           <button
@@ -104,7 +125,7 @@ export default function App() {
               handleCount()
             }}
           >
-            {tenzies ? "New Game" : "Roll"}
+            {tenzies ? 'New Game' : 'Roll'}
           </button>
           <div className="next">
             <h2 className="rollTitle">Roll</h2>
