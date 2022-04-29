@@ -22,12 +22,10 @@ export default function App() {
   const [dice, setDice] = useState([])
   const [tenzies, setTenzies] = useState(false)
   const [counter, setCounter] = useState(0)
-  const [prevCounter, setPrevCounter] = useState(
-    JSON.parse(localStorage.getItem('previousGame')).previousCounter || 0
-  )
+  const [prevCounter, setPrevCounter] = useState(0)
   const [time, setTime] = useState({
     time: 0,
-    lastTime: JSON.parse(localStorage.getItem('previousGame')).previousTime,
+    lastTime: 0,
     stop: true,
   })
 
@@ -37,13 +35,6 @@ export default function App() {
     if (wonHeld && wonValue) {
       setTenzies(true)
       setTime(prev => ({ ...prev, stop: true }))
-      const save = {
-        previousCounter: counter,
-        previousTime: time.time,
-      }
-      if (counter !== 0) {
-        localStorage.setItem('previousGame', JSON.stringify(save))
-      }
     }
   }, [dice])
 
@@ -58,15 +49,11 @@ export default function App() {
 
   const Roll = () => {
     if (tenzies) {
-      setPrevCounter(
-        counter ||
-          JSON.parse(localStorage.getItem('previousGame')).previousCounter
-      )
+      setPrevCounter(counter)
       setTime(prev => ({
+        ...prev,
         time: 0,
-        lastTime:
-          prev.time ||
-          JSON.parse(localStorage.getItem('previousGame')).previousTime,
+        lastTime: prev.time,
       }))
       setCounter(-1)
       setDice(allNewDice())
